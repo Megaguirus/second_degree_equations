@@ -18,13 +18,13 @@ fn validate_input() -> [f64; 3] {
         } else {
             continue 'a;
         };
-    if output.len() != 3 {
-        continue 'a;
-    } else {
-        break 'a;
+        if output.len() != 3 {
+            continue 'a;
+        } else {
+            break 'a;
+        }
     }
-    }
-    return [*output.get(0).unwrap(), *output.get(1).unwrap(), *output.get(2).unwrap()]; 
+    return output.try_into().unwrap();
 }
 
 struct Equation {
