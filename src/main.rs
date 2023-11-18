@@ -1,5 +1,31 @@
 use core::fmt;
+use std::io;
 use std::{cmp::Ordering, fmt::Display};
+
+fn validate_input() -> [f64; 3] {
+    let mut output: Vec<f64> = vec![];
+    let mut input = String::new();
+    'a: loop {
+        io::stdin().read_line(&mut input).expect("error");
+        let vecco: Vec<_> = input.split_whitespace().collect();
+        if vecco.len() == 3 {
+            for i in vecco {
+                match i.parse::<f64>() {
+                    Ok(f) => output.push(f),
+                    Err(_) => continue 'a,
+                }
+            }
+        } else {
+            continue 'a;
+        };
+    if output.len() != 3 {
+        continue 'a;
+    } else {
+        break 'a;
+    }
+    }
+    return [*output.get(0).unwrap(), *output.get(1).unwrap(), *output.get(2).unwrap()]; 
+}
 
 struct Equation {
     a: f64,
@@ -27,8 +53,8 @@ impl Equation {
             }
             _ => {
                 return Solution {
-                    first: Some((-self.b - (delta as f64).sqrt()) / 2.0 * self.a),
-                    second: Some((-self.b + (delta as f64).sqrt()) / 2.0 * self.a),
+                    first: Some((-self.b - delta.sqrt()) / 2.0 * self.a),
+                    second: Some((-self.b + delta.sqrt()) / 2.0 * self.a),
                 }
             }
         }
@@ -48,8 +74,7 @@ impl Display for Equation {
 
 impl Display for Solution {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        let tup = (self.first, self.second);
-        match tup {
+        match (self.first, self.second) {
             (Some(t), Some(i)) => write!(f, "2 solutions are {} and {}", t, i),
             (None, None) => write!(f, "no solutions here for you nigga"),
             _ => write!(f, "idk"),
@@ -71,6 +96,10 @@ fn main() {
     println!("solutions {}", eq.solve());
 
     let eq = Equation::from([2.9, 4.0, 3889.9]);
+    println!("{eq}");
+    println!("solutions {}", eq.solve());
+
+    let eq = Equation::from(validate_input());
     println!("{eq}");
     println!("solutions {}", eq.solve());
 }
