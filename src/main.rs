@@ -76,7 +76,7 @@ impl Display for Solution {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         match (self.first, self.second) {
             (Some(t), Some(i)) => write!(f, "2 solutions are {} and {}", t, i),
-            (None, None) => write!(f, "no solutions here for you nigga"),
+            (None, None) => write!(f, "on real solutions"),
             _ => write!(f, "idk"),
         }
     }
