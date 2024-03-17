@@ -27,6 +27,7 @@ fn validate_input() -> [f64; 3] {
     return output.try_into().unwrap();
 }
 
+
 struct Equation {
     a: f64,
     b: f64,
@@ -86,6 +87,8 @@ fn main() {
     let eq = Equation::from([1.0, -8.0, 15.0]);
     println!("{eq}");
     println!("solutions {}", eq.solve());
+
+    println!("this is a new code line for the class presentation");
 
     let eq = Equation::from([4.0, 4.0, 4.0]);
     println!("{eq}");
